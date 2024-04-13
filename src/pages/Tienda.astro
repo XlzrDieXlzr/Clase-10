@@ -1,0 +1,41 @@
+---
+import Layout from "../layouts/Layout.astro";
+const API = "https://dummyjson.com/products?limit=100";
+const resp = await fetch(API);
+const data = await resp.json();
+console.log(data);
+---
+
+<Layout>
+  <h1 class="text-center lead py-3">Tienda</h1>
+  <div class="container">
+    <div class="row">
+    {
+      data.products.map((prod)=>(
+      <div class="col-md-4 col-lg-3 mb-3">
+        <div class="card h-100" data-bs-theme="dark">
+          <div class="card-header p-0">
+            <img src={prod.thumbnail} alt="" class="img-fluid altura">
+          </div>
+          <div class="card-body text-center lead">
+            <p class="text-primary"><b class="text-light">Nombre: </b>{prod.title}</p>
+            <p class="text-success"><b class="text-light">Precio: </b>{prod.price}$</p>
+            <p class="text-warning"><b class="text-light">Calificacion: </b>{prod.rating}</p>
+          </div>
+          <div class="card-footer text-center">
+            <a href="" class="btn btn-outline-light">Detalle</a>
+            <a href="" class="btn btn-outline-light">Comprar</a>
+          </div>
+        </div>
+      </div>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+    .altura{
+        object-fit: cover;
+        height: 300px;
+    }
+</style>
